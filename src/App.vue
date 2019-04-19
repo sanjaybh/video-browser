@@ -3,7 +3,11 @@
         <h3>Video Browser App</h3>
         <hr />
         <SearchBar @termChange="onTermChange"></SearchBar>
-        <VideoList :videos="videos"></VideoList>
+        
+        <div class="row">
+            <VideoDetail :video="selectedVideo"></VideoDetail>
+            <VideoList @videoSelect="onVideoSelect" :videos="videos"></VideoList>
+        </div>
     </div>
 </template>
 
@@ -12,31 +16,41 @@ import axios from 'axios';
 
 import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
+import VideoDetail from './components/VideoDetail';
+
 
 //Youtube API Key
-const API_KEY = 'AIzaSyBflVwHGn72p-LTlzFv3ixdrTYGWGa3fQs';
+const API_KEY = 'AIzaSyAqBfR0fnwBGs27tc109XcNIt_8eCffRz4';
 
 export default {
     name:'App',
     components: {
-        SearchBar, VideoList
+        SearchBar, VideoList, VideoDetail
     },
     data() {
-        return { videos: [] }
+        return { videos: [], selectedVideo: null }
     },
     methods: {
+        onVideoSelect(video){
+            this.selectedVideo = video;
+        },
         onTermChange:function(searchTerm){
-
-            axios.get('https://www.googleapis.com/youtube/v3/search',{
-                params:{
-                    key: API_KEY,
-                    type: 'video',
-                    part: 'snippet',
-                    q: searchTerm
-                }
-            }).then(response => {
-                this.videos = response.data.items
-            })
+            //https://www.googleapis.com/youtube/v3/search
+            //file:///C:/wamp64/www/Vue-Projects/video-browser/src/stubbed/youtube.json
+            
+            //console.log("Count - "+searchTerm.length)
+            if(searchTerm.length > 6){
+                axios.get('https://www.googleapis.com/youtube/v3/search',{
+                    params:{
+                        key: API_KEY,
+                        type: 'video',
+                        part: 'snippet',
+                        q: searchTerm
+                    }
+                }).then(response => {
+                    this.videos = response.data.items
+                })
+            }
         }
     }
 }
