@@ -20,7 +20,7 @@ import VideoDetail from './components/VideoDetail';
 
 
 //Youtube API Key
-const API_KEY = '<Google API KEY>';
+const API_KEY = 'AIzaSyAqBfR0fnwBGs27tc109XcNIt_8eCffRz4';//'<Google API KEY>';
 
 export default {
     name:'App',
