@@ -39,7 +39,7 @@ export default {
             //file:///C:/wamp64/www/Vue-Projects/video-browser/src/stubbed/youtube.json
             
             //console.log("Count - "+searchTerm.length)
-            if(searchTerm.length > 6){
+            if(searchTerm.length > 3){
                 axios.get('https://www.googleapis.com/youtube/v3/search',{
                     params:{
                         key: API_KEY,
